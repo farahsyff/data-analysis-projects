@@ -63,7 +63,7 @@ WITH cte_price AS
 cte_median AS
 ( 
 	SELECT
-		(SELECT DISTINCT [year] FROM cte_price) AS [Year], 
+		(SELECT DISTINCT [year] FROM [cte_price]) AS [Year], 
 		(
 			(	
 				SELECT MAX([Total Price])
@@ -79,8 +79,7 @@ cte_median AS
 				SELECT MIN([Total Price])
 				FROM
 				(
-					SELECT TOP 50 PERCENT 
-						[Total Price]
+					SELECT TOP 50 PERCENT [Total Price]
 					FROM [cte_price]
 					ORDER BY 1 DESC
 				) a
@@ -91,7 +90,6 @@ cte_stats AS
 (
 	SELECT 
 		YEAR([order_date]) AS [Year],
-		--[order_date],
 		[order_id],
 		[product_quantity] * [product_price] AS [Total Price]
 	FROM [FictionalSalesDatabase].[dbo].[FactSalesTransactions] [sales]
